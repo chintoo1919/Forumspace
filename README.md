@@ -1,6 +1,6 @@
 # Forumspace
- a self-hosted internet forum or message board
- a self-hosted internet forum or message board, The system should be able to support 50 to 200 active users posting, discussing 
+ A self-hosted internet forum or message board
+ A self-hosted internet forum or message board, The system should be able to support 50 to 200 active users posting, discussing 
  Technology to use:
  Front-end: HTML, CSS, JavaScript, bootstrap keeping it simple 
  Back-end: Python

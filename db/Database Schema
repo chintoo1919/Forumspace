@@ -1,0 +1,72 @@
+let's start by defining the database schema for our forum:
+
+  How about:
+          
+      -- Users table
+          CREATE TABLE users (
+              id SERIAL PRIMARY KEY,
+              username VARCHAR(50) UNIQUE NOT NULL,
+              email VARCHAR(100) UNIQUE NOT NULL,
+              password_hash VARCHAR(255) NOT NULL,
+              role VARCHAR(20) NOT NULL DEFAULT 'user',
+              created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+              last_login TIMESTAMP
+          );
+          
+      -- Categories table
+          CREATE TABLE categories (
+              id SERIAL PRIMARY KEY,
+              name VARCHAR(100) NOT NULL,
+              description TEXT
+          );
+          
+      -- Subforums table
+          CREATE TABLE subforums (
+              id SERIAL PRIMARY KEY,
+              category_id INTEGER REFERENCES categories(id),
+              name VARCHAR(100) NOT NULL,
+              description TEXT
+          );
+          
+      -- Threads table
+          CREATE TABLE threads (
+              id SERIAL PRIMARY KEY,
+              subforum_id INTEGER REFERENCES subforums(id),
+              user_id INTEGER REFERENCES users(id),
+              title VARCHAR(255) NOT NULL,
+              created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+              is_pinned BOOLEAN NOT NULL DEFAULT FALSE,
+              is_locked BOOLEAN NOT NULL DEFAULT FALSE
+          );
+          
+      -- Posts table
+          CREATE TABLE posts (
+              id SERIAL PRIMARY KEY,
+              thread_id INTEGER REFERENCES threads(id),
+              user_id INTEGER REFERENCES users(id),
+              content TEXT NOT NULL,
+              created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+              updated_at TIMESTAMP
+          );
+          
+      -- Tags table
+          CREATE TABLE tags (
+              id SERIAL PRIMARY KEY,
+              name VARCHAR(50) UNIQUE NOT NULL
+          );
+          
+      -- Thread_Tags table (for many-to-many relationship)
+          CREATE TABLE thread_tags (
+              thread_id INTEGER REFERENCES threads(id),
+              tag_id INTEGER REFERENCES tags(id),
+              PRIMARY KEY (thread_id, tag_id)
+          );
+          
+      -- Notifications table
+          CREATE TABLE notifications (
+              id SERIAL PRIMARY KEY,
+              user_id INTEGER REFERENCES users(id),
+              content TEXT NOT NULL,
+              is_read BOOLEAN NOT NULL DEFAULT FALSE,
+              created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+          );

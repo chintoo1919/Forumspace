@@ -28,3 +28,5 @@ d) Security and Moderation:
    Moderation Tools: Give moderators tools to edit, delete, or lock posts and ban users.
    Spam Prevention: Implement CAPTCHA for registration and post-creation. Rate limit actions to prevent spam.
    User Reporting: Allow users to report inappropriate content.
+
+![image](https://github.com/user-attachments/assets/1666c457-dbf9-40cb-afc4-695cd2b7a0a9)
